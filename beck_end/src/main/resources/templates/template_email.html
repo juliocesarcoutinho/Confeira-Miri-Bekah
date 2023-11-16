@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Adicione o seu CSS personalizado aqui */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .signature {
+            color: #999999;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="/logo.png" alt="Logo da Loja">
+</div>
+<div class="message">
+    <h1>Acesso</h1>
+    <p><strong>Segue abaixo seus dados de acesso à Confeitaria Miribekah:</strong></p>
+    <p><strong>Login:</strong> {{email}}</p>
+    <p><strong>Senha:</strong> {{senha}}</p>
+    <p>Obrigado pela Preferência</p>
+    <p>Obs: Não responder a este e-mail</p>
+    <p class="signature">Atenciosamente,<br>A equipe da Miribekah</p>
+</div>
+</body>
+</html>
