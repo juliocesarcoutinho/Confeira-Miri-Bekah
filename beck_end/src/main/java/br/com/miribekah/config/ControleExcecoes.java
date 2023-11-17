@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.util.NestedServletException;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -39,15 +41,19 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
         ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
 
-        if (ex instanceof MethodArgumentNotValidException){
+        if (ex instanceof MethodArgumentNotValidException) {
             List<ObjectError> list = ((MethodArgumentNotValidException) ex).getBindingResult().getAllErrors();
             for (ObjectError objectError : list) {
                 msg += objectError.getDefaultMessage() + "\n";
             }
-        } else if(ex instanceof HttpMessageNotReadableException) {
+        } else if (ex instanceof HttpMessageNotReadableException) {
             msg += "Não esta sendo enviado dados no corpo da requisição(BodY) ";
 
-        }else{
+        } else if (ex instanceof NestedServletException) {
+            msg += "Não esta sendo enviado dados no corpo da requisição(BodY)";
+        } else if (ex instanceof ConstraintViolationException) {
+            msg += "Não esta sendo enviado todos os dados obrigatórios no corpo da requisição(BodY)";
+        } else{
             msg = ex.getMessage();
         }
         objetoErroDTO.setError(msg);
@@ -66,16 +72,16 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
 
     /*Caputura erro de banco*/
     @ExceptionHandler({DataIntegrityViolationException.class, ConstraintViolationException.class, SQLException.class})
-    protected ResponseEntity<Object> handleExceptionDataIntegry(Exception ex){
+    protected ResponseEntity<Object> handleExceptionDataIntegry(Exception ex) {
 
         ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
-        if (ex instanceof DataIntegrityViolationException){
+        if (ex instanceof DataIntegrityViolationException) {
             msg = "Erro de Integridade no banco " + ex.getCause().getMessage();
-        }else if (ex instanceof ConstraintViolationException){
+        } else if (ex instanceof ConstraintViolationException) {
             msg = "Chave estrangeira violada + " + ex.getCause().getMessage();
-        }else if (ex instanceof SQLException){
+        } else if (ex instanceof SQLException) {
             msg = "Erro de banco de dados " + ex.getCause().getMessage();
-        }else {
+        } else {
             msg = ex.getMessage();
         }
 
@@ -96,7 +102,7 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ExcepetionJava.class)
-    public ResponseEntity<Object> handleExceptionCustom(ExcepetionJava ex){
+    public ResponseEntity<Object> handleExceptionCustom(ExcepetionJava ex) {
         ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
         objetoErroDTO.setError(ex.getMessage());
         objetoErroDTO.setCod(HttpStatus.OK.toString());

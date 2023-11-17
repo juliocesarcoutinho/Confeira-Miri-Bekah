@@ -26,6 +26,7 @@ public class Acesso implements GrantedAuthority {
     private String descricao;
     
     @Override
+    @JsonIgnore
     public String getAuthority() {
         return descricao;
     }

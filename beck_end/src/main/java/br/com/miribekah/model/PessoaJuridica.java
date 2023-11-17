@@ -44,9 +44,20 @@ public class PessoaJuridica extends Pessoa{
     private String categoria;
 
     @Column
-    @NotBlank
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private TipoPessoa tipoPessoa;
-    
+
+    @Override
+    public String toString() {
+        return "PessoaJuridica{" +
+                "cnpj='" + cnpj + '\'' +
+                ", inscEstadual='" + inscEstadual + '\'' +
+                ", inscMunicipal='" + inscMunicipal + '\'' +
+                ", nomeFantasia='" + nomeFantasia + '\'' +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", tipoPessoa=" + tipoPessoa +
+                '}';
+    }
 }
