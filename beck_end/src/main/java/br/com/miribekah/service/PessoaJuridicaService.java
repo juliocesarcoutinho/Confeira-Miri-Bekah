@@ -40,6 +40,11 @@ public class PessoaJuridicaService {
             throw new ExcepetionJava("Já existe uma pessoa com o Cnpj: " + pessoaJuridica.getCnpj() + " cadastrado");
         }
 
+//        pessoaJuridicaRepository.save(pessoaJuridica);
+
+        for (int i = 0; i < pessoaJuridica.getEnderecos().size(); i++) {
+            pessoaJuridica.getEnderecos().get(i).setPessoa(pessoaJuridica);
+        }
         pessoaJuridicaRepository.save(pessoaJuridica);
         Usuario usuarioPj = usuarioRepository.findUserByPessoa(pessoaJuridica.getId(), pessoaJuridica.getEmail());
         
