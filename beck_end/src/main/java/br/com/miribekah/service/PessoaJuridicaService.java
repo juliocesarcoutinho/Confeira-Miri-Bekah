@@ -60,7 +60,7 @@ public class PessoaJuridicaService {
             usuarioPj = usuarioRepository.save(usuarioPj);
 
             usuarioRepository.insereAcessoUser(usuarioPj.getId());
-            usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_ADMIN");
+//            usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_ADMIN");
 
             /*Envio do email com dados de acesso a Loja*/
             try {
