@@ -5,6 +5,7 @@ import br.com.miribekah.model.PessoaJuridica;
 import br.com.miribekah.model.Usuario;
 import br.com.miribekah.repository.PessoaJuridicaRepository;
 import br.com.miribekah.repository.UsuarioRepository;
+import br.com.miribekah.util.ValidadorCnpj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +42,9 @@ public class PessoaJuridicaService {
         }
         if (pessoaJuridica.getId() == null && pessoaJuridicaRepository.findByInscEstadual(pessoaJuridica.getInscEstadual()) != null) {
             throw new ExcepetionJava(("Já existe uma pessoa com a Incrição estadual: " + pessoaJuridica.getInscEstadual() + " cadastrado"));
+        }
+        if (!ValidadorCnpj.isCNPJ(pessoaJuridica.getCnpj())) {
+            throw new ExcepetionJava("CNPJ: " + pessoaJuridica.getCnpj() + " não é um CNPJ válido, verifique! ");
         }
 
 //        pessoaJuridicaRepository.save(pessoaJuridica);
