@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Component
@@ -34,7 +36,7 @@ public void init() {
         // Leia o conteúdo do arquivo "template_email.html"
         templateEmail = Files.readString(Paths.get("src/main/resources/templates/template_email.html"));
     } catch (IOException e) {
-        e.printStackTrace();
+        Logger.getLogger(TarefaAutomatizadaService.class.getName()).log(Level.SEVERE, null, e);
     }
 }
 //    @Scheduled(initialDelay = 2000, fixedDelay = 86400000) /*Roda a Cada 24 Horas*/
@@ -55,7 +57,7 @@ public void init() {
                 Thread.sleep(3000);
 
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                Logger.getLogger(TarefaAutomatizadaService.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
