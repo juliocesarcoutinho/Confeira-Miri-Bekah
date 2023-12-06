@@ -39,6 +39,9 @@ public class PessoaJuridicaService {
         if (pessoaJuridica.getId() == null && pessoaJuridicaRepository.findByCnpj(pessoaJuridica.getCnpj()) != null) {
             throw new ExcepetionJava("Já existe uma pessoa com o Cnpj: " + pessoaJuridica.getCnpj() + " cadastrado");
         }
+        if (pessoaJuridica.getId() == null && pessoaJuridicaRepository.findByInscEstadual(pessoaJuridica.getInscEstadual()) != null) {
+            throw new ExcepetionJava(("Já existe uma pessoa com a Incrição estadual: " + pessoaJuridica.getInscEstadual() + " cadastrado"));
+        }
 
 //        pessoaJuridicaRepository.save(pessoaJuridica);
 
