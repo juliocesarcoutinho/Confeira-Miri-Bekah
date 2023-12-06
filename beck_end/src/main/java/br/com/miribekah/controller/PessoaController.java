@@ -1,7 +1,9 @@
 package br.com.miribekah.controller;
 
 import br.com.miribekah.config.ExcepetionJava;
+import br.com.miribekah.model.PessoaFisica;
 import br.com.miribekah.model.PessoaJuridica;
+import br.com.miribekah.service.PessoaFisicaService;
 import br.com.miribekah.service.PessoaJuridicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,21 @@ public class PessoaController {
 
     @Autowired
     private PessoaJuridicaService pessoaJuridicaService;
+    
+    @Autowired
+    private PessoaFisicaService pessoaFisicaService;
 
     @PostMapping("/juridica")
     public ResponseEntity<PessoaJuridica> adicionar(@RequestBody PessoaJuridica pessoaJuridica) throws ExcepetionJava {
         PessoaJuridica novaPessoaJuridica = pessoaJuridicaService.adicionar(pessoaJuridica);
         return new ResponseEntity<>(novaPessoaJuridica, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/fisica")
+    public ResponseEntity<PessoaFisica> adicionar(@RequestBody PessoaFisica pessoaFisica) throws ExcepetionJava {
+        PessoaFisica novaPessoaFisica = pessoaFisicaService.adicionar(pessoaFisica);
+        return new ResponseEntity<>(novaPessoaFisica, HttpStatus.CREATED);
 
     }
 
