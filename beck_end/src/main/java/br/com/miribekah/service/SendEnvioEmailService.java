@@ -11,13 +11,13 @@ import java.util.Properties;
 
 @Service
 public class SendEnvioEmailService {
-    public String userName = "miribekah@outlook.com";
-    public String senha = "miribekah147258#";
+    public String userName = "lojamiribekah@gmail.com";
+    public String senha = "tpnq ekfk unqk dxei";
 
     @Async
     public void enviarEmailHtml(String assunto, String mensagem, String emailDestino) throws MessagingException, UnsupportedEncodingException {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.office365.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");

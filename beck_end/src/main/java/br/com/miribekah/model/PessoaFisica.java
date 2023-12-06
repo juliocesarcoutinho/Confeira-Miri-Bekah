@@ -31,4 +31,13 @@ public class PessoaFisica extends Pessoa{
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private TipoPessoa tipoPessoa;
+
+    @Override
+    public String toString() {
+        return "PessoaFisica{" +
+                "cpf='" + cpf + '\'' +
+                ", dataNacimento=" + dataNacimento +
+                ", tipoPessoa=" + tipoPessoa +
+                '}';
+    }
 }

@@ -36,7 +36,6 @@ public class Usuario implements UserDetails {
 
     @Column
     @NotNull
-    @NotBlank
     @Temporal(TemporalType.DATE)
     private Date dataAtualSenha;
 
