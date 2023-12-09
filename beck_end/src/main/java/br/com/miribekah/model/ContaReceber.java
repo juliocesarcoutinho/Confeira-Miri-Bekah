@@ -23,8 +23,8 @@ public class ContaReceber implements Serializable {
     private Long id;
 
     @Column
-    @NotBlank
-    @NotNull(message = "É necessario preencher a descrição")
+    @NotNull
+    @NotBlank(message = "É necessario preencher a descrição")
     private String descricao;
     
     @Column
@@ -34,9 +34,9 @@ public class ContaReceber implements Serializable {
     private StatusContaReceber status;
 
     @Column
-    @NotBlank
+    @NotNull
+    @NotBlank(message = "É necessario preencher a data de vencimento")
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "É necessario preencher a data de vencimento")
     private Date dtVencimento;
     
     @Column
@@ -45,7 +45,7 @@ public class ContaReceber implements Serializable {
     
     @Column
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Insira o valor total")
     private BigDecimal valorTotal;
 
     @Column

@@ -23,22 +23,22 @@ public class ContaPagar implements Serializable {
     private Long id;
 
     @Column
-    @NotBlank
-    @NotNull(message = "Preencha a Descrição")
+    @NotNull
+    @NotBlank(message = "Preencha a Descrição")
     private String descricao;
 
     @Column
-    @NotBlank
-    @NotNull(message = "É necessario preecher o valor Total")
+    @NotNull
+    @NotBlank(message = "É necessario preecher o valor Total")
     private BigDecimal valorTotal;
     
     @Column
     private BigDecimal valorDesconto;
 
     @Column
-    @NotBlank
+    @NotNull
+    @NotBlank(message = "É necessario preencher o valor de vencimento")
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "É necessario preencher o valor de vencimento")
     private Date dtVencimento;
     
     @Column

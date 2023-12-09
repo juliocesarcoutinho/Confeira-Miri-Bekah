@@ -21,8 +21,8 @@ public class MarcaProduto implements Serializable {
     private Long id;
     
     @Column
-    @NotBlank
-    @NotNull(message = "O campo descrição é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo descrição é obrigatório")
     private String nomeDescricao;
 
     

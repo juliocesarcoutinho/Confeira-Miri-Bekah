@@ -20,8 +20,8 @@ public class CategoriaProduto implements Serializable {
     private Long id;
 
     @Column
-    @NotBlank
-    @NotNull(message = "Preencha a Descrição")
+    @NotNull
+    @NotBlank(message = "Preencha a Descrição")
     private String nomeDescricao;
 
 }

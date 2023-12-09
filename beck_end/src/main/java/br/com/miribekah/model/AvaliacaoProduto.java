@@ -20,13 +20,13 @@ public class AvaliacaoProduto implements Serializable {
     private Long id;
 
     @Column
-    @NotBlank 
-    @NotNull(message = "Digite uma descrição para sua avaliação")
+    @NotNull
+    @NotBlank(message = "Digite uma descrição para sua avaliação")
     private String descricao;
 
     @Column
-    @NotBlank
-    @NotNull(message = "Por favor digite uma nota para avaliar o Produto")
+    @NotNull
+    @NotBlank(message = "Por favor digite uma nota para avaliar o Produto")
     private Integer nota;
 
     @ManyToOne(targetEntity = Pessoa.class)

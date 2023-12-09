@@ -21,7 +21,7 @@ public class ItemVendaLoja implements Serializable {
 
     @Column
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Informe a quantidade")
     private Double quantidade;
 
     @ManyToOne

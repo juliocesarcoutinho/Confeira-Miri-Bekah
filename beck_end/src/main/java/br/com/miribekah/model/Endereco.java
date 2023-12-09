@@ -23,37 +23,38 @@ public class Endereco implements Serializable {
     private Long id;
 
     @Column
-    @NotBlank
-    @NotNull(message = "O campo endereço é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo endereço é obrigatório")
     private String logradouro;
 
     @Column
-    @NotBlank
+    @NotNull
+    @NotBlank(message = "O CEP é obrigatório")
     @Length(max = 9)
-    @NotNull(message = "O CEP é obrigatório")
     private String cep;
 
     @Column
-    @NotBlank 
-    @NotNull(message = "O campo número é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo número é obrigatório")
     private String numero;
     
     @Column
     private String complemento;
     
     @Column
-    @NotBlank
-    @NotNull(message = "O campo bairo é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo bairro é obrigatório")
     private String bairro;
     
     @Column
-    @NotBlank
+    @NotNull
+    @NotBlank(message = "O campo UF é obrigatório")
     @Length(max = 2)
-    @NotNull(message = "O campo UF é obrigatório")
     private String uf;
     
     @Column(nullable = false, length = 50)
-    @NotNull(message = "O campo cidade é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo cidade é obrigatório")
     private String cidade;
 
     @JsonIgnore

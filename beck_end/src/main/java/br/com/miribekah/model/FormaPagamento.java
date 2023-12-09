@@ -18,8 +18,8 @@ public class FormaPagamento implements Serializable {
     private Long Id;
 
     @Column
-    @NotBlank
-    @NotNull(message = "O campo descrição é obrigatório")
+    @NotNull
+    @NotBlank(message = "O campo descrição é obrigatório")
     private String descricao;
     
 }
