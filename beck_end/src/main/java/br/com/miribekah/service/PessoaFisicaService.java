@@ -46,6 +46,9 @@ public class PessoaFisicaService {
         if (fisica.getId() == null && pessoaFisicaRepository.existeCpf(fisica.getCpf()) != null) {
             throw new ExcepetionJava("Ja existe um cadastro com o CPF: " + fisica.getCpf());
         }
+        if (fisica.getId() == null && pessoaFisicaRepository.findByEmail(fisica.getEmail()) != null){
+            throw new ExcepetionJava("Já existe uma cadastro com o email: " + fisica.getEmail());
+        }
         if (!ValidaCPF.isCPF(fisica.getCpf())) {
             throw new ExcepetionJava("CPF: " + fisica.getCpf() + " não é um CPF válido, verifique! ");
         }

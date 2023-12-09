@@ -43,6 +43,9 @@ public class PessoaJuridicaService {
         if (pessoaJuridica.getId() == null && pessoaJuridicaRepository.findByInscEstadual(pessoaJuridica.getInscEstadual()) != null) {
             throw new ExcepetionJava(("Já existe uma pessoa com a Incrição estadual: " + pessoaJuridica.getInscEstadual() + " cadastrado"));
         }
+        if (pessoaJuridica.getId() == null && pessoaJuridicaRepository.findByEmail(pessoaJuridica.getEmail()) != null){
+            throw new ExcepetionJava("Já existe um cadastro com o email: " + pessoaJuridica.getEmail());
+        }
         if (!ValidadorCnpj.isCNPJ(pessoaJuridica.getCnpj())) {
             throw new ExcepetionJava("CNPJ: " + pessoaJuridica.getCnpj() + " não é um CNPJ válido, verifique! ");
         }
