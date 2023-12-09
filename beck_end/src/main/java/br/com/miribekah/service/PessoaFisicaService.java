@@ -1,6 +1,7 @@
 package br.com.miribekah.service;
 
 import br.com.miribekah.config.ExcepetionJava;
+import br.com.miribekah.dto.CepDTO;
 import br.com.miribekah.enums.TipoPessoa;
 import br.com.miribekah.model.PessoaFisica;
 import br.com.miribekah.model.PessoaJuridica;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
