@@ -1,17 +1,17 @@
 package br.com.miribekah.controller;
 
 import br.com.miribekah.config.ExcepetionJava;
+import br.com.miribekah.dto.CepDTO;
+import br.com.miribekah.dto.ConsultaCnpjDTO;
 import br.com.miribekah.model.PessoaFisica;
 import br.com.miribekah.model.PessoaJuridica;
 import br.com.miribekah.service.PessoaFisicaService;
 import br.com.miribekah.service.PessoaJuridicaService;
+import br.com.miribekah.service.PessoaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,6 +24,24 @@ public class PessoaController {
     
     @Autowired
     private PessoaFisicaService pessoaFisicaService;
+    
+    @Autowired
+    private PessoaUserService pessoaUserService;
+
+    @ResponseBody
+    @GetMapping(value = "/consultaCep/{cep}")
+    public ResponseEntity<CepDTO> consultaCep(@PathVariable("cep") String cep) {
+        CepDTO cepDTO = pessoaUserService.consultaCep(cep);
+        return new ResponseEntity<>(cepDTO, HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/consultaCnpjWs/{cnpj}")
+    public ResponseEntity<ConsultaCnpjDTO> consultaCnpjWs(@PathVariable("cnpj") String cnpj) {
+        ConsultaCnpjDTO consultaCnpjDTO = pessoaUserService.consultaCnpjWs(cnpj);
+        return new ResponseEntity<>(consultaCnpjDTO, HttpStatus.OK);
+
+    }
 
     @PostMapping("/juridica")
     public ResponseEntity<PessoaJuridica> adicionar(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExcepetionJava {
