@@ -25,20 +25,20 @@ public abstract class Pessoa implements Serializable {
     private Long id;
     
     @Column
-    @NotNull(message = "O campo nome é obrigatório")
+    @NotNull
     @NotBlank(message = "O campo nome é obrigatório")
-    @Size(min = 4, max = 150, message = "O valor minimo do campo nome é 4 letras")
+    @Size(min = 4, max = 150)
     private String nome;
     
     @Column(nullable = false)
-    @NotNull(message = "O campo de email é obrigatório")
+    @NotNull
     @NotBlank(message = "O campo email é obrigatório")
     @Email
     @Size(max = 120)
     private String email;
     
     @Column(nullable = false)
-    @NotNull(message = "O campo telefone é obrigatório")
+    @NotNull
     @NotBlank(message = "O campo email é obrigatório")
     @Size(max = 16)
     private String telefone;

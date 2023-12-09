@@ -21,7 +21,7 @@ public class Acesso implements GrantedAuthority {
     private Long id;
     
     @Column
-    @NotBlank
+    @NotBlank(message = "Digite uma descrição")
     @NotNull
     private String descricao;
     

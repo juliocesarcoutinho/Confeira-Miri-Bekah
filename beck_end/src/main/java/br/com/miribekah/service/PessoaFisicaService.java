@@ -47,7 +47,7 @@ public class PessoaFisicaService {
             throw new ExcepetionJava("Ja existe um cadastro com o CPF: " + fisica.getCpf());
         }
         if (!ValidaCPF.isCPF(fisica.getCpf())) {
-            throw new ExcepetionJava("CPF: " + fisica.getCpf() + "não é um CPF válido, verifique! ");
+            throw new ExcepetionJava("CPF: " + fisica.getCpf() + " não é um CPF válido, verifique! ");
         }
 
         for (int i = 0; i < fisica.getEnderecos().size(); i++) {

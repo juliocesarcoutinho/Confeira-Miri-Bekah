@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
@@ -24,14 +26,14 @@ public class PessoaController {
     private PessoaFisicaService pessoaFisicaService;
 
     @PostMapping("/juridica")
-    public ResponseEntity<PessoaJuridica> adicionar(@RequestBody PessoaJuridica pessoaJuridica) throws ExcepetionJava {
+    public ResponseEntity<PessoaJuridica> adicionar(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExcepetionJava {
         PessoaJuridica novaPessoaJuridica = pessoaJuridicaService.adicionar(pessoaJuridica);
         return new ResponseEntity<>(novaPessoaJuridica, HttpStatus.CREATED);
 
     }
 
     @PostMapping("/fisica")
-    public ResponseEntity<PessoaFisica> adicionar(@RequestBody PessoaFisica pessoaFisica) throws ExcepetionJava {
+    public ResponseEntity<PessoaFisica> adicionar(@RequestBody @Valid PessoaFisica pessoaFisica) throws ExcepetionJava {
         PessoaFisica novaPessoaFisica = pessoaFisicaService.adicionar(pessoaFisica);
         return new ResponseEntity<>(novaPessoaFisica, HttpStatus.CREATED);
 
