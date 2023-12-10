@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class PessoaJuridicaService {
@@ -40,7 +41,9 @@ public class PessoaJuridicaService {
     
     @Autowired
     private EnderecoRepository enderecoRepository;
-
+    
+    /**
+     * ADICIONA PESSOA JURIDICA  */
     public PessoaJuridica adicionar(PessoaJuridica pessoaJuridica) throws ExcepetionJava {
 
         if (pessoaJuridica == null) {
@@ -132,6 +135,14 @@ public class PessoaJuridicaService {
         }
         return pessoaJuridica;
 
+    }
+    
+    public List<PessoaJuridica> listarPorNome(String nome){
+        return pessoaJuridicaRepository.pesquisaPorNome(nome.trim().toUpperCase());
+    }
+    
+    public List<PessoaJuridica> listarPorCnpj(String cnpj){
+        return pessoaJuridicaRepository.existeCnpjList(cnpj);
     }
 
 }

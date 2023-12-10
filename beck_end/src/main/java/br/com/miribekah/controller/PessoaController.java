@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -42,12 +43,41 @@ public class PessoaController {
         return new ResponseEntity<>(consultaCnpjDTO, HttpStatus.OK);
 
     }
+    
+    /*Pessoa Juridica*/
+    @ResponseBody
+    @GetMapping(value = "/consultaNomePj/{nome}")
+    public ResponseEntity <List<PessoaJuridica>> consultaNomePj(@PathVariable("nome") String nome){
+        List<PessoaJuridica> pessoaJuridicas = pessoaJuridicaService.listarPorNome(nome.trim().toUpperCase());
+        return new ResponseEntity<List<PessoaJuridica>>(pessoaJuridicas, HttpStatus.OK);
+    }
+
+    /*Lista uma pessoa Juridica por cnpj*/
+    @ResponseBody
+    @GetMapping("/listarPjCnpj/{cnpj}")
+    public ResponseEntity<List<PessoaJuridica>> consultaCnpj(@PathVariable("cnpj") String cnpj){
+        List<PessoaJuridica> pessoaJuridica = pessoaJuridicaService.listarPorCnpj(cnpj);
+        return new ResponseEntity<>(pessoaJuridica, HttpStatus.OK);
+
+    }
 
     @PostMapping("/juridica")
     public ResponseEntity<PessoaJuridica> adicionar(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExcepetionJava {
         PessoaJuridica novaPessoaJuridica = pessoaJuridicaService.adicionar(pessoaJuridica);
         return new ResponseEntity<>(novaPessoaJuridica, HttpStatus.CREATED);
 
+    }
+    
+    @GetMapping("/consultaPfNome/{nome}")
+    public ResponseEntity<List<PessoaFisica>> listarPorNome(@PathVariable("nome") String nome){
+       List<PessoaFisica> pfNome = pessoaFisicaService.listarPorNome(nome.trim().toUpperCase());
+       return new ResponseEntity<>(pfNome, HttpStatus.OK);
+    }
+
+    @GetMapping("/consultaPorCpf/{cpf}")
+    public ResponseEntity<List<PessoaFisica>> listarPorCpf(@PathVariable("cpf") String cpf){
+        List<PessoaFisica> pfCpf = pessoaFisicaService.listarPorCpf(cpf);
+        return new ResponseEntity<>(pfCpf, HttpStatus.OK);
     }
 
     @PostMapping("/fisica")
