@@ -3,9 +3,11 @@ package br.com.miribekah.service;
 import br.com.miribekah.config.ExcepetionJava;
 import br.com.miribekah.dto.CepDTO;
 import br.com.miribekah.enums.TipoPessoa;
+import br.com.miribekah.model.Endereco;
 import br.com.miribekah.model.PessoaFisica;
 import br.com.miribekah.model.PessoaJuridica;
 import br.com.miribekah.model.Usuario;
+import br.com.miribekah.repository.EnderecoRepository;
 import br.com.miribekah.repository.PessoaFisicaRepository;
 import br.com.miribekah.repository.UsuarioRepository;
 import br.com.miribekah.util.ValidaCPF;
@@ -21,9 +23,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class PessoaFisicaService {
+    
+    @Autowired
+    private PessoaUserService pessoaUserService;
+    
+    @Autowired
+    private EnderecoRepository enderecoRepository;
     
     @Autowired
     private PessoaFisicaRepository pessoaFisicaRepository;
@@ -59,6 +68,31 @@ public class PessoaFisicaService {
             fisica.getEnderecos().get(i).setPessoa(fisica);
 //            fisica.getEnderecos().get(i).setEmpresa(fisica);
         }
+
+        if (fisica.getId() == null || fisica.getId() <= 0) {
+            for (int p = 0; p < fisica.getEnderecos().size(); p++) {
+                CepDTO cepDTO = pessoaUserService.consultaCep(fisica.getEnderecos().get(p).getCep());
+                fisica.getEnderecos().get(p).setBairro(cepDTO.getBairro());
+                fisica.getEnderecos().get(p).setCidade(cepDTO.getLocalidade());
+                fisica.getEnderecos().get(p).setComplemento(cepDTO.getComplemento());
+                fisica.getEnderecos().get(p).setLogradouro(cepDTO.getLogradouro());
+                fisica.getEnderecos().get(p).setUf(cepDTO.getUf());
+            }
+        } else {
+            for (int p = 0; p < fisica.getEnderecos().size(); p++) {
+                Endereco enderecoTemp = enderecoRepository.findById(fisica.getEnderecos().get(p).getId()).get();
+                if (!enderecoTemp.getCep().equals(fisica.getEnderecos().get(p).getCep())) {
+                    CepDTO cepDTO = pessoaUserService.consultaCep(fisica.getEnderecos().get(p).getCep());
+                    fisica.getEnderecos().get(p).setBairro(cepDTO.getBairro());
+                    fisica.getEnderecos().get(p).setCidade(cepDTO.getLocalidade());
+                    fisica.getEnderecos().get(p).setComplemento(cepDTO.getComplemento());
+                    fisica.getEnderecos().get(p).setLogradouro(cepDTO.getLogradouro());
+                    fisica.getEnderecos().get(p).setUf(cepDTO.getUf());
+                }
+
+            }
+        }
+        
         fisica = pessoaFisicaRepository.save(fisica);
 
         Usuario usuarioPf = usuarioRepository.findUserByPessoa(fisica.getId(), fisica.getEmail());
@@ -101,6 +135,14 @@ public class PessoaFisicaService {
 
         }
         return fisica;
+    }
+    
+    public List<PessoaFisica> listarPorNome(String nome){
+        return pessoaFisicaRepository.findByNome(nome.trim().toUpperCase());
+    }
+    
+    public List<PessoaFisica> listarPorCpf(String cpf){
+        return pessoaFisicaRepository.findByCpf(cpf);
     }
     
 }
